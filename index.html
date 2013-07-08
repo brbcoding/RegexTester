@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Regex</title>
+	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/flatly/bootstrap.min.css">
+	<style>
+    .source {
+    	min-height: 10em;
+    }
+    .match-label {
+    	margin-top: 2em;
+    }
+    .main {
+    	margin-top: 5em;
+    }
+    #matches {
+    	background-color: white;
+    	border-color: #d0d5d9;
+    
+    	font-weight: bold;
+    }
+	</style>
+</head>
+<body>
+	<div class="container well main">
+		<div class="span12">
+			<form class="form">
+				<legend>Regular Expression Tester</legend>
+				<label>Source Data</label>
+				<textarea class="span11 source" id="source" required placeholder="Text to match"></textarea>
+				<label>Regular Expression</label>
+				<input class="span11" type="text" id="regexp" required placeholder=".*">
+				<input type="button" class="btn btn-success" value="Submit" id="submit">
+				<input type="button" class="btn btn-default" value="Clear" id="clear">
+				<label class="match-label">Matches</label>
+				<textarea class="span11 matches" id="matches" readonly></textarea>
+			</form>
+		</div>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+	<script>
+    $(document).ready(function(){
+    	// regex functionality
+    	var checkRegex = function(){
+    		var source_data = $('#source').val();
+        	var regular_exp = new RegExp($('#regexp').val().trim());
+        	var matches = source_data.match(regular_exp);
+        	if(matches) {
+        		$('#matches').val(matches);
+        	}
+        	else { 
+       			$('#matches').val('No Matches Found.');
+        	}
+    	}
+
+    	// check regex on keyup of regex box
+        $('#regexp, #source').keyup(function(){
+        	checkRegex();
+        });
+
+        $('#submit').click(function(){
+        	checkRegex();
+        })
+
+        // clear button
+        $('#clear').click(function(){
+            $('textarea, input[type=text]').val('');
+        });
+    });  
+	</script>
+</body>
+</html>
